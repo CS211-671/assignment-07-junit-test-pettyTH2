@@ -31,7 +31,7 @@ public class UserList {
     public boolean changePassword(String username, String oldPassword, String newPassword) {
         User exist = findUserByUsername(username);
         if (exist != null) {
-            if (exist.getPassword().equals(oldPassword)) {
+            if (exist.validatePassword(oldPassword)) {
                 exist.setPassword(newPassword);
                 return true;
             }
@@ -42,6 +42,12 @@ public class UserList {
     //TODO: implements this method to find user in users with valid password
     //TODO: return User object if username and password is correct, otherwise return null
     public User login(String username, String password) {
+        User exist = findUserByUsername(username);
+        if (exist != null) {
+            if (exist.getUsername().equals(username) && exist.validatePassword(password)) {
+            return exist;
+            }
+        }
         return null;
     }
 }
